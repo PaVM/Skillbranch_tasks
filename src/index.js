@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import getName from './methods/getName';
+import parseUsername from './methods/parseUsername';
 
 const app = express();
 app.use(cors());
@@ -20,6 +21,17 @@ app.get('/task2b', (req, res) => {
     response = getName(fullname);
   }
 
+  res.send(response);
+});
+
+app.get('/task2c', (req, res) => {
+  const username = req.query.username;
+
+  let response = username;
+  if (username !== 'Invalid username') {
+    response = parseUsername(username);
+  }
+  console.log(`${username}  { ${response} }`);
   res.send(response);
 });
 
