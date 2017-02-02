@@ -1,5 +1,14 @@
-var Skb = require('skb');
-var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODIyMmU5Y2E3MmJkYTAwMTJjNjkwY2IiLCJ1c2VybmFtZSI6InBhdmJveGRldkBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTQ3ODYzNTE2Nn0.CO-mxvW67JU2Nhx4x6PjG5-_bx61GjFjMPoC7nlvCoE';
-var skb = new Skb(token);
+import express from 'express';
+import cors from 'cors';
 
-skb.taskHelloWorld('Привет, друзья)');
+const app = express();
+app.use(cors());
+
+app.get('/task2a', (req, res) => {
+  const sum = (+req.query.a || 0) + (+req.query.b || 0);
+  res.send(sum.toString());
+});
+
+app.listen(3000, () => {
+  console.log('Your app listening on port 3000!');
+});
