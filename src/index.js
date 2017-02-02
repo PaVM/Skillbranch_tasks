@@ -2,6 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import getName from './methods/getName';
 import parseUsername from './methods/parseUsername';
+import ColorConverter from './methods/ColorConverter';
+
+const INVALID_COLOR = 'Invalid color';
+const convertColor = new ColorConverter();
 
 const app = express();
 app.use(cors());
@@ -33,6 +37,21 @@ app.get('/task2c', (req, res) => {
   }
   console.log(`${username}  { ${response} }`);
   res.send(response);
+});
+
+app.get('/task2d', (req, res) => {
+  const color = req.query.color;
+  let converted = INVALID_COLOR;
+  // console.log(encodeURIComponent(color));
+  if (color !== undefined) {
+    converted = convertColor.convert(color);
+
+    if (converted !== INVALID_COLOR) {
+      converted = `#${converted}`;
+    }
+  }
+  console.log(`${color} { ${converted} }`);
+  res.send(converted);
 });
 
 app.listen(3000, () => {
